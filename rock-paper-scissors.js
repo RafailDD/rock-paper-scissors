@@ -12,21 +12,9 @@ function getComputerChoice() {
     }
 }
 
-function getUserInput() {
-    let playerSelection;
-    let inputCheck; 
-    do {
-        playerSelection = prompt("Rock, paper or scissors? Choose now!").toLowerCase();
-        inputCheck=false;
-        if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-            alert("Your input was invalid.\n\nSpelling siscorrs can be confusing, but after coding this game I'll never misspell it again.\n\nPlease choose between rock, paper or scissors.");
-            inputCheck=true;
-        }
-    } while (inputCheck);
-    return playerSelection;
-}
-
 function playRound(playerSelection, computerSelection) {
+    console.log(playerSelection);
+    console.log(computerSelection);
     if (playerSelection === "rock") {
         if (computerSelection === "rock") {
             return "It's a tie!";
@@ -76,28 +64,18 @@ function calcFinalScore(playerScore, computerScore) {
 
 function play() {
     let playerSelection;
-    let computerSelection;
     let playerScore = 0;
     let computerScore = 0;
-
-    for (let i = 0; i < 5; i++) {
-        computerSelection = getComputerChoice();
-        playerSelection = getUserInput();
-        let roundResult = playRound(playerSelection, computerSelection);
-        console.log(roundResult);
-
-        if (roundResult.substr(4,3) === "win") {
-            playerScore++;
-        } else if (roundResult.substr(4,4) === "lose") {
-            computerScore++;
-        } else {
-            playerScore++;
-            computerScore++;
-        }
-    console.log(`The score so far is\n Player: ${playerScore} - Computer: ${computerScore}`);
-    }
-    console.log('The match has ended!')
-    console.log(calcFinalScore(playerScore, computerScore));
+    
+    
+    const btn = document.querySelectorAll("button");
+    btn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let computerSelection = getComputerChoice();
+            let roundResults = playRound(btn.textContent, computerSelection);
+            console.log(roundResults);
+        });
+    })
 }
 
 play();
